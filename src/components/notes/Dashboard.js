@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Note from "./Note";
+import CreateNote from "./CreateNote";
 
 export default class Dashboard extends Component {
     state = {notes: [
@@ -9,11 +10,30 @@ export default class Dashboard extends Component {
         {title: "Note 4", date: 'date 4', content: 'content 4', id: 4},
         {title: "Note 5", date: 'date 5', content: 'content 5', id: 5}
     ]}
+
+    addNote = (newNote) => {
+        const newList = [...this.state.notes,newNote];
+        this.setState({
+            notes: newList
+        });
+    }
+
+    deleteNote = (ID) => {
+        const newList = this.state.notes.filter(existingNote => {
+            return existingNote.id !== ID;
+        });
+
+        this.setState({
+            notes: newList
+        });
+    }
+
     render() {
         console.log(this.state.notes.length);
         return (
             <div className = "dashboard">
-                <Note noteList = {this.state.notes} />
+                <Note noteList = {this.state.notes} deleteNote = {this.deleteNote}/>
+                <CreateNote addNote = {this.addNote}/>
             </div>
         )
     }
