@@ -41,25 +41,23 @@ class Note extends Component {
 
     handleCreate = () => {
         this.props.addNote(this.state);
-        this.props.history.push('/');
+        this.props.history.push('/notebook');
     }
 
     render() {
         return (
             <div className="container">
-                <form>
-                    <div className="form-group">
-                        <label> Title </label>
-                        <input type="text" id="title" className="form-control" onChange={this.handleChange}></input>
-                    </div>
-                    <div className="form-group" >
-                        <textarea className="form-control" id="content" rows="25" onChange={this.handleChange} />
-                    </div>
-                    <div className="text-center">
-                        <button className="btn btn-outline-primary" onClick={this.handleCreate} style={{ margin: '20px' }}>Save</button>
-                        <button className="btn btn-outline-danger" onClick={() => { this.props.history.push('/') }} style={{ margin: '20px' }}>Cancel</button>
-                    </div>
-                </form>
+                <div className="form-group">
+                    <label> Title </label>
+                    <input type="text" id="title" className="form-control" onChange={this.handleChange}></input>
+                </div>
+                <div className="form-group" >
+                    <textarea className="form-control" id="content" rows="25" onChange={this.handleChange} />
+                </div>
+                <div className="text-center">
+                    <button className="btn btn-outline-primary" onClick={this.handleCreate} style={{ margin: '20px' }}>Save</button>
+                    <button className="btn btn-outline-danger" onClick={() => { this.props.history.push('/notebook') }} style={{ margin: '20px' }}>Cancel</button>
+                </div>
             </div>
         )
     }

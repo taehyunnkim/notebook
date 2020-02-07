@@ -10,7 +10,7 @@ const NoteCard = ({ notesFR, deleteNote }) => {
                 <div className='col-4' key={note.id}>
                     <div className="card">
                         <div className="card-body">
-                            <Link to={'/' + note.id} style={{ textDecoration: 'none', color: 'black' }}>
+                            <Link to={'/notebook/' + note.id} style={{ textDecoration: 'none', color: 'black' }}>
                                 <h5 className="card-title">{note.title}</h5>
                             </Link>
                             <p className="card-subtitle"> {note.date} </p>

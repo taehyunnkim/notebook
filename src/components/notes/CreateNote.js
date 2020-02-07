@@ -20,7 +20,7 @@ export class CreateNote extends Component {
     render() {
         return (
             <div className = "text-center">
-                <Link to={'/' + this.state.id}>
+                <Link to={'/notebook/' + this.state.id}>
                     <button className = "btn btn-primary" style = {{marginTop: "20px"}} onClick={this.handleClick}> NEW NOTE </button>
                 </Link>
             </div>
