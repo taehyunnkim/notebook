@@ -1,19 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { deleteNote } from '../actions/postActions';
 
-const NoteCard = ({ notes, deleteNote }) => {
-    const noteList = notes.length ? (
-        notes.map((note) => {
+const NoteCard = ({ notesFR, deleteNote }) => {
+    const noteList = notesFR.length ? (
+        notesFR.map((note) => {
             return (
-                <div className='col-sm-4' key={note.id}>
+                <div className='col-4' key={note.id}>
                     <div className="card">
                         <div className="card-body">
                             <Link to={'/' + note.id} style={{ textDecoration: 'none', color: 'black' }}>
                                 <h5 className="card-title">{note.title}</h5>
                             </Link>
                             <p className="card-subtitle"> {note.date} </p>
-                            <button className="btn btn-secondary" onClick={() => { deleteNote(note.id) }}>Delete</button>
+                            <div className="text-right">
+                                <button className="btn btn-outline-danger" style={{ marginTop: '20px' }} onClick={() => { deleteNote(note.id) }}>Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -28,9 +31,14 @@ const NoteCard = ({ notes, deleteNote }) => {
 
 const mapStateToProps = (state) => {
     return {
-        notes: state.notes
+        notesFR: state.notes
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteNote: (id) => { dispatch(deleteNote(id)) }
+    }
+}
 
-export default connect(mapStateToProps)(NoteCard);
+export default connect(mapStateToProps, mapDispatchToProps)(NoteCard);
