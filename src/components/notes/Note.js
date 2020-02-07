@@ -12,25 +12,38 @@ class Note extends Component {
 
     componentDidMount() {
         let id = this.props.match.params.note_id;
+        const exists = this.checkNote(id);
 
-        // const correctNote = this.props.notes.find((note) => {
-        //     return note.id === id;
-        // });
+        if (exists) {
+            const correctNote = this.props.notes.find((note) => {
+                return note.id === id;
+            });
 
-        // Creating a new note
-        this.setState({
-            id: id
-        }, () => console.log(this.state));
+            this.setState({
+                title: correctNote.title,
+                content: correctNote.content,
+                id: id
+            }, () => {
+                console.log(this.state);
+                document.getElementById("title").value = this.state.title;
+                document.getElementById("content").value = this.state.content;
+            });
+        } else {
+            // Creating a new note
+            this.setState({
+                id: id
+            }, () => console.log(this.state));
+        }
+    }
 
-        // this.setState({
-        //     title: correctNote.title,
-        //     content: correctNote.content,
-        //     id: id
-        // }, () => {
-        //     document.getElementById("textarea").value = this.state.content;
-        //     document.getElementById("title").value = this.state.title;
-        // });
+    checkNote = (id) => {
+        for (let i = 0; i < this.props.notes.length; i++) {
+            if (this.props.notes[i].id === id) {
+                return true;
+            }
+        }
 
+        return false;
     }
 
     handleChange = (e) => {
