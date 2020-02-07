@@ -6,10 +6,6 @@ export class CreateNote extends Component {
         id: null
     }
 
-    handleClick = () => {
-        console.log(this.state.id);
-    }
-
     componentDidMount() {
         let id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
         this.setState({
@@ -21,7 +17,7 @@ export class CreateNote extends Component {
         return (
             <div className = "text-center">
                 <Link to={'/notebook/' + this.state.id}>
-                    <button className = "btn btn-primary create" onClick={this.handleClick}> NEW NOTE </button>
+                    <button className = "btn btn-primary create"> NEW NOTE </button>
                 </Link>
             </div>
         )

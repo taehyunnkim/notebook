@@ -13,18 +13,13 @@
     margin-top: 5vh;
 }
 
-.noNotes {
-    font-size: 30px;
-    color: lightpink;
-}
-
 .btn-primary {
     background-color: #333;
     border: none;
     transition: 0.3s all;
 }
 
-.btn-primary:hover {
-    background-color: lightgrey;
+.btn-primary:hover, .btn-primary:active {
+    background-color: lightgrey !important;
     border: none;
 }

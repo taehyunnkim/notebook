@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteNote } from '../actions/postActions';
 
-const NoteCard = ({ notesFR, deleteNote }) => {
-    const noteList = notesFR.length ? (
-        notesFR.map((note) => {
+const NoteCard = ({ notesFromStore, deleteNote }) => {
+    const noteList = notesFromStore.length ? (
+        notesFromStore.map((note) => {
             return (
                 <div className='col-4' key={note.id}>
                     <div className="card">
@@ -22,7 +22,7 @@ const NoteCard = ({ notesFR, deleteNote }) => {
                 </div>
             )
         }
-        )) : (<div className="container noNotes text-center"><p>There are no notes</p></div>);
+        )) : (<div></div>);
 
     return (
         <div className="row"> {noteList} </div>
@@ -31,7 +31,7 @@ const NoteCard = ({ notesFR, deleteNote }) => {
 
 const mapStateToProps = (state) => {
     return {
-        notesFR: state.notes
+        notesFromStore: state.notes
     }
 }
 

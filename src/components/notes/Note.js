@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { addNote } from '../actions/postActions';
-
+import { addNote, updateNote } from '../actions/postActions';
 
 class Note extends Component {
     state = {
         title: '',
         content: '',
-        id: null
+        id: null, 
+        exists: false
     }
 
     componentDidMount() {
-        let id = this.props.match.params.note_id;
+        const id = this.props.match.params.note_id;
         const exists = this.checkNote(id);
 
         if (exists) {
@@ -22,9 +22,9 @@ class Note extends Component {
             this.setState({
                 title: correctNote.title,
                 content: correctNote.content,
-                id: id
+                id: id,
+                exists: true
             }, () => {
-                console.log(this.state);
                 document.getElementById("title").value = this.state.title;
                 document.getElementById("content").value = this.state.content;
             });
@@ -32,7 +32,7 @@ class Note extends Component {
             // Creating a new note
             this.setState({
                 id: id
-            }, () => console.log(this.state));
+            });
         }
     }
 
@@ -53,8 +53,12 @@ class Note extends Component {
     }
 
     handleCreate = () => {
-        this.props.addNote(this.state);
         this.props.history.push('/notebook');
+        if(this.state.exists) {
+            this.props.updateNote(this.state);
+        } else {
+            this.props.addNote(this.state);
+        }
     }
 
     render() {
@@ -84,7 +88,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addNote: (newNote) => { dispatch(addNote(newNote)) }
+        addNote: (newNote) => { dispatch(addNote(newNote)) },
+        updateNote: (updatedNote) => { dispatch(updateNote(updatedNote)) }
     }
 }
 
