@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App container">
-        <h1 className="text-center">Notebook</h1>
+        <h1 className="text-center">Eric's Notebook</h1>
         <Switch>
           <Route exact path="/notebook" component={Dashboard} />
           <Route path="/notebook/:note_id" component={Note} />

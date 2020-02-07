@@ -22,7 +22,7 @@ const NoteCard = ({ notesFR, deleteNote }) => {
                 </div>
             )
         }
-        )) : (<div><h1>There are no notes</h1></div>);
+        )) : (<div className="container noNotes text-center"><p>There are no notes</p></div>);
 
     return (
         <div className="row"> {noteList} </div>
