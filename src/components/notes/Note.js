@@ -1,26 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
-const Note = ({ noteList, deleteNote}) => {
-    const notes = noteList.length ? (
-        noteList.map((note) => {
+class Note extends Component {
+    state = {
+        title: '',
+        content: '',
+        id: null
+    }
+
+    componentDidMount() {
+        let id = this.props.match.params.note_id;
+        const correctNote = this.props.notes.filter((note) => {
+            return note.id === id;
+        })[0];
+
+        this.setState({
+            title: correctNote.title,
+            content: correctNote.content,
+            id: id
+        }, () => {
+            document.getElementById("textarea").value = this.state.content;
+            document.getElementById("title").value = this.state.title;
+        });
+    }
+
+    render() {
         return (
-            <div className = 'col-sm-4' key={note.id}>
-                <div className="card">
-                    <div className="card-body">
-                        <h5 className="card-title">{note.title}</h5>
-                        <p className="card-subtitle"> {note.date} </p>
-                        <p className="card-body"> {note.content} </p>
-                        <button className="btn btn-secondary" onClick={() => {deleteNote(note.id)}}>Delete</button>
+            <div className = "container">
+                <form>
+                    <div className = "form-group">
+                        <label> Title </label>
+                        <input type="text" id = "title" className="form-control"></input>
                     </div>
-                </div>
+                    <div className = "form-group" >
+                        <textarea className="form-control" id="textarea" rows="25" />
+                    </div>
+                </form>
             </div>
         )
     }
-    )) : (<div><h1>There are no notes</h1></div>);
-
-    return (
-        <div className = "row"> {notes} </div>
-    );
 }
 
-export default Note;
+const mapStateToProps = (state) => {
+    return {
+        notes: state.notes
+    }
+}
+
+
+export default connect(mapStateToProps)(Note);
